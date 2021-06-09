@@ -1,0 +1,30 @@
+<div class="col-md">
+    <table width=100% style='margin:10px'>
+        <tr>
+            <td width="40%" height="100%" style="vertical-align: top;background:#ffffff">
+                <div id='info' style="padding:10px">
+                    <a class='button' style="font-size:1em" href="<%= `/room/${roomList[0].id}/edit` %>">수정</a>
+                    <a class='button' href="<%= `/room/${roomList[0].id}/delete?_method=DELETE` %>" onclick="return confirm('삭제하시겠습니까?')">삭제</a>
+                    <h3>"<%= roomList[0].name %>"</h3>
+                    <input type="hidden" name="roomId" value="<%=`${roomList[0].id}`%>">
+                    <label class='form-group'>기준인원 : <%= roomList[0].maxpeople %>인</label>
+                    <label class='form-group'>체크인 <%= roomList[0].check_in %></label>
+                    <label class='form-group'>체크아웃 <%= roomList[0].check_out %></label>
+                    <label class='form-group'>설명</label>
+                    <label> <%- (roomList[0].description).replace(/\r\n/g, "<br/>") %> </label>
+                    <label class='form-group'>서비스</label>
+                    <label> <%= roomList[0].service %> </label>
+                </div>
+            </td>
+
+
+            <td width="60%" style='background:#ffffff'>
+                <div style="margin-left:20px">
+                <% for(var i=1; i<= 4; i++){ %>
+                    <img id='images'><img src="<%= `/images/room/${roomList[0].id}_${i}.jpg` %>" style='width:100%'>
+                <%}%>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>

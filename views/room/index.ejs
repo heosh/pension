@@ -1,0 +1,23 @@
+<style>
+    #header_img_div {display:block !important;}
+</style>
+<div class="col-sm-6">
+    <table width=100%>
+        <tr>
+            <% roomList.forEach( (room, index) => { %>
+                <td>
+                    <div id='image' style='width:50vh'><img src="<%= `/${room.main_img}` %>" style='width:100%'></div>
+                    <div id='info'><h3><a href="<%= `room/${room.id}` %>">"<%= room.name %>"</a></h3></div>
+                </td>
+
+                <%if(index%3 == 2){ %>
+                <!--한 tr당 3개씩-->
+                </tr>
+                <tr>
+                <%}%>
+            <%})%>
+
+            <td><a class='button' style="font-size:1em" href="/room/new">추가</a></td>
+        </tr>
+    </table>
+</div>
