@@ -1,0 +1,49 @@
+
+
+<form class="login-form" modelAttribute="user" method="post" action="login" >
+    
+    <div>
+
+        <h3 class="join_title">
+
+            <label for="id">아이디</label>
+
+        </h3>
+
+        <input type="text" class="form-control" path="id"
+            id="id" name="userId" />
+            
+        
+
+
+    </div>
+    <div>
+
+        <h3 class="join_title">
+
+            <label for="pswd1">비밀번호</label>
+
+        </h3>
+
+        <input type="password" path="pass" id='pass' name="userPw"
+            class="form-control" maxlength="30" size='10' />
+        
+
+
+
+    </div>
+
+    
+    <div class="btn_area">
+   
+        <button type="submit" id="btnJoin">
+
+            <span>로그인</span>
+
+        </button>
+
+    </div>
+
+</form>
+<a href="/login/findpassword">비밀번호찾기</a>
+<a href="/login/join">회원가입</a>
