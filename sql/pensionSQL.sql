@@ -19,27 +19,18 @@ INSERT INTO rooms (name,maxpeople,amenity,service,description,check_in,check_out
 	 ('소담',2,NULL,'','','15:00','11:00','images/room/sodam01.jpg'),
 	 ('오비양',2,NULL,'','','15:00','11:00','images/room/obiyang01.jpg'),
 	 ('담빌라',2,NULL,'','','15:00','11:00','images/room/damvilla01.jpg');
-	
-	
-/* user table */
-CREATE TABLE USER(
-	id VARCHAR(30) NOT NULL,
-	PASSWORD VARCHAR(30) NOT NULL,
-	NAME VARCHAR(20) NOT NULL,
-	phone VARCHAR(50) NOT NULL,
-	email VARCHAR(50) NOT NULL,
-	PRIMARY KEY(id)
-);
-	
-/* board table */
-CREATE TABLE board (
-  idx int(11) NOT NULL AUTO_INCREMENT,
-  name varchar(50) NOT NULL,
-  title varchar(50) NOT NULL,
-  content mediumtext NOT NULL,
-  regdate datetime NOT NULL,
-  modidate datetime NOT NULL,
-  passwd varchar(50) NOT NULL,
-  hit int(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`idx`)
-);
+	 
+	 
+CREATE DATABASE `test_db`;
+CREATE TABLE `resevation` (
+  `id` int(11) NOT NULL,
+  `name` varchar(40) NOT NULL,
+  `roomnumber` int(11) NOT NULL,
+  `date` varchar(45) NOT NULL,
+  `inwon` int(11) NOT NULL,
+  `barbecue` varchar(45) NOT NULL,
+  `price` int(45) NOT NULL,
+  `request` varchar(45) NOT NULL,
+  PRIMARY KEY (`id`)
+  )
+
