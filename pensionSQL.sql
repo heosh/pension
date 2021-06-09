@@ -13,9 +13,33 @@ CREATE TABLE `rooms` (
   UNIQUE KEY `name` (`name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 INSERT INTO rooms (name,maxpeople,amenity,service,description,check_in,check_out,main_img) VALUES
-	 ('¾Æ´ã',3,NULL,'¹«·á »ı¼ö,  ÇÁ¸®¹Ì¾ö TV Ã¤³Î, ¹«·á Wifi','23Æò, Äı»çÀÌÁî Ä§´ë 
-Á¤¿ø Àü¸Á
-´ëÇü ½ºÆÄ¿åÁ¶, ¿å½Ç¿ëÇ°, µå¶óÀÌ±â','15:00','11:00','images/room/adam01.jpg'),
-	 ('¼Ò´ã',2,NULL,'','','15:00','11:00','images/room/sodam01.jpg'),
-	 ('¿Àºñ¾ç',2,NULL,'','','15:00','11:00','images/room/obiyang01.jpg'),
-	 ('´ãºô¶ó',2,NULL,'','','15:00','11:00','images/room/damvilla01.jpg');
+	 ('ì•„ë‹´',3,NULL,'ë¬´ë£Œ ìƒìˆ˜,  í”„ë¦¬ë¯¸ì—„ TV ì±„ë„, ë¬´ë£Œ Wifi','23í‰, í€¸ì‚¬ì´ì¦ˆ ì¹¨ëŒ€ 
+ì •ì› ì „ë§
+ëŒ€í˜• ìŠ¤íŒŒìš•ì¡°, ìš•ì‹¤ìš©í’ˆ, ë“œë¼ì´ê¸°','15:00','11:00','images/room/adam01.jpg'),
+	 ('ì†Œë‹´',2,NULL,'','','15:00','11:00','images/room/sodam01.jpg'),
+	 ('ì˜¤ë¹„ì–‘',2,NULL,'','','15:00','11:00','images/room/obiyang01.jpg'),
+	 ('ë‹´ë¹Œë¼',2,NULL,'','','15:00','11:00','images/room/damvilla01.jpg');
+	 
+	 
+/* user table */
+CREATE TABLE USER(
+	id VARCHAR(30) NOT NULL,
+	PASSWORD VARCHAR(30) NOT NULL,
+	NAME VARCHAR(20) NOT NULL,
+	phone VARCHAR(50) NOT NULL,
+	email VARCHAR(50) NOT NULL,
+	PRIMARY KEY(id)
+);
+	
+/* board table */
+CREATE TABLE board (
+  idx int(11) NOT NULL AUTO_INCREMENT,
+  name varchar(50) NOT NULL,
+  title varchar(50) NOT NULL,
+  content mediumtext NOT NULL,
+  regdate datetime NOT NULL,
+  modidate datetime NOT NULL,
+  passwd varchar(50) NOT NULL,
+  hit int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`idx`)
+);
