@@ -22,7 +22,7 @@ INSERT INTO rooms (name,maxpeople,amenity,service,description,check_in,check_out
 	 
 
 /* user table */
-CREATE TABLE USER(
+CREATE TABLE user(
 	id VARCHAR(30) NOT NULL,
 	PASSWORD VARCHAR(30) NOT NULL,
 	NAME VARCHAR(20) NOT NULL,
