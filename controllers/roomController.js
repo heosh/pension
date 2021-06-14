@@ -23,12 +23,13 @@ const roomController = {
 
     index: async (req, res, next) => {
         console.log("room index in");
+        console.log(req.session.userId);
         var sql = "select * from rooms order by id";
         conn.query(sql, (err, rows, fields) => {
             if (!err) {
                 console.log('select success');
                 console.log(rows);
-                res.render("room/index", {roomList: rows});
+                res.render("room/index", {roomList: rows, userId: req.session.userId});
             } else {
                 console.log('err : ' + err);
                 res.send();
@@ -43,7 +44,7 @@ const roomController = {
             if (!err) {
                 console.log('select success');
                 console.log(rows);
-                res.render("room/info", {roomList: rows});
+                res.render("room/info", {roomList: rows, userId: req.session.userId});
             } else {
                 console.log('err : ' + err);
                 res.send();
