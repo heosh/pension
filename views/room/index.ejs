@@ -16,8 +16,9 @@
                 <tr>
                 <%}%>
             <%})%>
-
+            <% if(userId == 'admin') { %>
             <td><a class='button' style="font-size:1em" href="/room/new">추가</a></td>
+            <% } %>
         </tr>
     </table>
 </div>

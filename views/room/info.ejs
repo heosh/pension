@@ -3,8 +3,14 @@
         <tr>
             <td width="40%" height="100%" style="vertical-align: top;background:#ffffff">
                 <div id='info' style="padding:10px">
-                    <a class='button' style="font-size:1em" href="<%= `/room/${roomList[0].id}/edit` %>">수정</a>
-                    <a class='button' href="<%= `/room/${roomList[0].id}/delete?_method=DELETE` %>" onclick="return confirm('삭제하시겠습니까?')">삭제</a>
+                    <% if(userId == 'admin') { %>
+                        <a class='button' style="font-size:1em" href="<%= `/room/${roomList[0].id}/edit` %>">수정</a>
+                        <a class='button' href="<%= `/room/${roomList[0].id}/delete?_method=DELETE` %>" onclick="return confirm('삭제하시겠습니까?')">삭제</a>
+                        <a class='button' style="font-size:1em" href="<%= `/room` %>">목록</a>
+                    <% } else {%>
+                        <a class='button' style="font-size:1em" href="#">예약하기</a>
+                    <% } %>
+                    
                     <h3>"<%= roomList[0].name %>"</h3>
                     <input type="hidden" name="roomId" value="<%=`${roomList[0].id}`%>">
                     <label class='form-group'>기준인원 : <%= roomList[0].maxpeople %>인</label>
