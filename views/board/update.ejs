@@ -1,0 +1,28 @@
+<form action="/board/update" method="post" >
+    <table class="table table-bordered">
+        <input type="hidden" name="idx" value="<%=row.idx%>"/>
+        <tr>
+            <th class="tcenter" >
+                <label for="subject">제목</label>
+            </th>
+            <td>
+                <input type="text" class="form-control" id="title" name="title" value="<%=row.title%>" required/>
+            </td>
+        </tr>
+        <tr >
+            <th class="tcenter">
+                <label for="content">내용</label>
+            </th>
+            <td>
+                <textarea id="content" name="content" rows="8" class="form-control w-100"  required><%=row.content%></textarea>
+            </td>
+        </tr>
+            
+
+    </table>
+    <br />
+    <div class="row justify-content-center">
+        <button type="submit" formaction="/board/delete">글삭제</button>
+        <input type="submit" value="글수정" class="btn btn-outline-secondary" />
+    </div>
+</form>

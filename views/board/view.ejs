@@ -1,0 +1,45 @@
+<table class="table table-borderless">
+    <tr class="tcenter">
+        <th colspan="4">
+            <h4 class="#"><b>FAQ 공지사항</b></h4>
+        </th>
+    </tr>
+    <tr class="tcenter border-bottom">
+        <th>
+            <h6 class="#">작성자</h6>
+        </th>
+        <td class="text-left">
+            <span><%=row.name%></span>
+        </td>
+    </tr>
+    
+    <tr class="text-left">
+        <th colspan="4">
+            <span class="" style="font-size: 1.5em"><%=row.title%></span>
+        </th>
+    </tr>
+    <tr class="text-left">
+        <td colspan="4">
+            <span><%=row.content%></span>
+            
+                <div class="d-flex justify-content-end mt-5">
+                    
+                    <button type="button" class="btn btn-light mr-1" disabled="disabled">
+                        <i class="fas fa-eye"></i>&nbsp;조회수&nbsp;&nbsp;<%=row.hit%>
+                    </button>
+                </div>
+               
+           
+        </td>
+    </tr>
+
+    <tr class="text-right thead-light border-bottom">
+        <td colspan="4">
+            <span>
+                <small class="text-muted font-weight-bold"><%=row.regdate%></small>
+            </span>
+        </td>
+    </tr>
+</table>
+<a href="/board/update/<%= row.idx %>">글수정</a>
+<a href="/board/page">목록</a>

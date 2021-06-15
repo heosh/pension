@@ -1,0 +1,27 @@
+<form action="/board/write" method="post" >
+    <table class="table table-bordered">
+        <tr>
+            <th class="tcenter" >
+                <label for="subject">제목</label>
+            </th>
+            <td>
+                <input type="text" id="title" name="title" class="form-control"/>
+            </td>
+        </tr>
+        <tr >
+            <th class="tcenter">
+                <label for="content">내용</label>
+            </th>
+            <td>
+                <textarea id="content" name="content" rows="8" class="form-control w-100"></textarea>
+            </td>
+        </tr>
+            
+
+    </table>
+    <br/>
+    <div class="row justify-content-center">
+        <input type="reset" value="재작성" class="btn btn-outline-secondary mr-1" /><br>
+        <input type="submit" value="확인" class="btn btn-outline-secondary" />
+    </div>
+</form>
