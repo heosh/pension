@@ -6,7 +6,7 @@
         <tr>
             <% roomList.forEach( (room, index) => { %>
                 <td>
-                    <div id='image' style='width:50vh'><img src="<%= `/${room.main_img}` %>" style='width:100%'></div>
+                    <div id='image' style='width:50vh'><a href="<%= `room/${room.id}` %>"><img src="<%= `/${room.main_img}` %>" style='width:100%'></a></div>
                     <div id='info'><h3><a href="<%= `room/${room.id}` %>">"<%= room.name %>"</a></h3></div>
                 </td>
 

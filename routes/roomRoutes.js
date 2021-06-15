@@ -12,19 +12,21 @@ var storage = multer.diskStorage({
     },
     filename: function (req, file, cb) {
         var fileList = req.files;
-        console.log(fileList);   
+        console.log(fileList);
         var imgNum;
-        for(var i = 0; i < 4; i++)
+        for(var i = 0; i < 5; i++)
         {
           if(Object.keys(fileList)[i] == undefined) continue;
           var keyName = Object.keys(fileList)[i]
           console.log("keyName-"+keyName)
           imgNum = keyName
         }
+        var roomName = req.body.name;
         var roomId = req.body.id;
-        //filename 형식을 roomid_num 형태로 변경
+        if(keyName = 0) roomId = roomName;
+        //filename 형식을 roomname_num 형태로 변경
         var filename = roomId + "_" + imgNum + ".jpg";
-        console.log("**filename: "+filename)
+        //console.log("**filename: "+filename)
       cb(null, filename) // cb 콜백함수를 통해 전송된 파일 이름 설정
     }
   })
@@ -34,8 +36,8 @@ const upload = multer({storage: storage})
 
 router.get("/", roomController.index);
 router.get("/new", roomController.new);
-router.post("/create", upload.fields([{ name:'1'}, {name:'2'}, {name:'3'}, {name:'4'}]), roomController.create, roomController.redirectView);
-router.post("/update", upload.fields([{ name:'1'}, {name:'2'}, {name:'3'}, {name:'4'}]), roomController.update, roomController.redirectView);
+router.post("/create", upload.fields([{ name:'0'}, { name:'1'}, {name:'2'}, {name:'3'}, {name:'4'}]), roomController.create, roomController.redirectView);
+router.post("/update", upload.fields([{ name:'0'}, { name:'1'}, {name:'2'}, {name:'3'}, {name:'4'}]), roomController.update, roomController.redirectView);
 router.get("/:id/edit", roomController.edit);
 router.delete("/:id/delete", roomController.delete, roomController.redirectView);
 

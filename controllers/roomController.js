@@ -1,7 +1,8 @@
 var mysql_odbc = require('../db/db_conn');
 var conn = mysql_odbc.connection();
+var fs = require('fs');
 
-const getRoomParams = body =>{
+const getRoomParams = body => {
         return {
             name: body.name,
             maxpeople: body.maxpeople,
@@ -9,9 +10,45 @@ const getRoomParams = body =>{
             service: body.service,
             description: body.description,
             check_in: body.check_in,
-            check_out: body.check_out
+            check_out: body.check_out,
+            main_img : body.main_img
         }
     };
+
+const fileRename = (roomId, roomName) => {
+    // 새로 생성된 room의 경우 이미지 이름이 undefined 되어 있어 rename해줌
+    var path = './public/images/room';
+    fs.readdir(path, (err, files) => {
+        files.forEach(file => {
+            //console.log(file)
+            if(file.startsWith('undefined')){
+                var nowName = path + "/" + file;
+                var newName;
+                if(file.endsWith('_0.jpg'))
+                {
+                    newName = path + "/" + file.replace("undefined", roomName);
+
+                }else{
+                    newName = path + "/" + file.replace("undefined", roomId);
+                }
+                
+                fs.renameSync(nowName, newName, (err) => {
+                    if(err) {
+                        console.log("fileRename Err!! " + err)
+                    }else{
+                        console.log("file rename complete: " + nowName + " -> " + newName);
+                    }
+                })
+            }
+        })
+        if(err)
+        {
+            console.log(err);
+        }
+    });
+
+
+};
 
 const roomController = {
     redirectView: (req, res, next) => {
@@ -75,20 +112,36 @@ const roomController = {
 
     create: (req, res, next) => {
         console.log('room create in');
+        console.log(req.body)
+        console.log("---------")
+        console.log(req.files)
+       
         let roomParams = getRoomParams(req.body)
-        console.log(roomParams)
-        console.log(req.files);
+
         if(roomParams.name == null)
         {
             console.log('name is null!!')
             res.send();
         }
         else{
-            var sql = 'insert into rooms set ?'
+            // 방 이름 중복체크
+            var sql = 'select * from rooms where name = ?'
+            conn.query(sql, req.body.name, (err, rows, fields) => {
+                if (err) throw error;
+                if(rows.length > 0)
+                {
+                    res.body = req.body;
+                    res.send('<script type="text/javascript">alert("이미 해당 이름으로 된 방이 존재합니다."); document.location.href="javascript:history.back()";</script>');
+                }
+            });
+            // rooms data insert
+            sql = 'insert into rooms set ?'
+            roomParams.main_img = 'images/room/' + roomParams.name + '_0.jpg';
             conn.query(sql, roomParams, (err, rows, fields) => {
                 if (!err) {
                     console.log('insert success');
                     console.log('insert id- '+ rows.insertId)
+                    fileRename(rows.insertId, roomParams.name)
                     res.locals.redirect = `/room/${rows.insertId}`;
                     next();
                 } else {
