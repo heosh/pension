@@ -45,15 +45,16 @@ CREATE TABLE board (
 );
 
 
-CREATE TABLE `resevation` (
+CREATE TABLE `reservation` (
   `id` int(11) NOT NULL,
-  `name` varchar(40) NOT NULL,
-  `roomnumber` int(11) NOT NULL,
-  `date` varchar(45) NOT NULL,
+  `userId` int(11) NOT NULL,
+  `roomId` int(11) NOT NULL,
+  `in_date` varchar(45) NOT NULL,
+  `out_date` varchar(45) NOT NULL,
   `inwon` int(11) NOT NULL,
   `barbecue` varchar(45) NOT NULL,
   `price` int(45) NOT NULL,
-  `request` varchar(45) NOT NULL,
+  `request` varchar(45) NULL,
   PRIMARY KEY (`id`)
   )
 
