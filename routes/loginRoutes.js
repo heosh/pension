@@ -3,17 +3,18 @@ const router = require("express").Router();
 var mysql_odbc = require('../db/db_conn');
 var conn = mysql_odbc.connection();
 
-
+/* GET login page. */
 router.get('/', function(req, res, next) {
  
   res.render('user/login');
 });
 
+/* POST login page. */
 router.post('/', function (req, res, next) {
     var userId = req.body['userId'];
     var userPw = req.body['userPw'];
     
-  /* POST login page. */
+  
     conn.query('select * from user where id=? and password=?',[userId,userPw], function (err, rows, fields) {
         if (!err) {
             if (rows[0]!=undefined) {
@@ -215,5 +216,24 @@ router.post('/updatepassword',function(req,res,next){
         
     }); 
 }); 
+
+
+/* GET myinfo page. */
+router.get('/myinfo',function(req,res,next){
+
+    var userId = req.session.userId;
+        
+    var sql = "select id,password,name,phone,email from user  where id = " + "'"+ req.session.userId +"'";
+
+    conn.query(sql,[userId],function (err, row) {
+        if (err) console.error("err : " + err);
+        res.render('user/myinfo', {title: ' 내정보' ,row:row[0] ,userId : req.session.userId});
+        console.log('@@@userId:',userId); 
+       
+    });
+})
+
+
+
 
 module.exports = router;

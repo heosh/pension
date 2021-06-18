@@ -16,7 +16,7 @@ router.get('/page/:page',function(req,res,next)
        
     conn.query(sql, function (err, rows) {
         if (err) console.error("err : " + err);
-        res.render('board/page', {title: ' 게시판 리스트', rows: rows, page:page, length:rows.length-1, page_num:10, pass:true});
+        res.render('board/page', {title: ' 게시판 리스트', rows: rows, page:page, length:rows.length-1, page_num:10, pass:true,  userId : req.session.userId});
         console.log(rows.length-1); 
        
     });
@@ -41,7 +41,7 @@ router.get('/write',function(req,res,next){
     var content = req.body.content;
     var passwd = req.body.passwd;
     var datas = [name,title,content,passwd];
- 
+  
  
     var sql = "insert into board(name, title, content, regdate, modidate, passwd,hit) values(?,?,?,now(),now(),0,0)";
     conn.query(sql,datas, function (err, rows) {
