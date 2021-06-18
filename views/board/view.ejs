@@ -41,5 +41,13 @@
         </td>
     </tr>
 </table>
-<a href="/board/update/<%= row.idx %>">글수정</a>
+<div style="position:absolute; left:45%">
+
+ <% if(userId == 'admin'){%>
+    <a href="/board/update/<%= row.idx %>" >글수정</a>
+     <%}else{%>
+     
+     <%}%>
+
 <a href="/board/page">목록</a>
+</div>
