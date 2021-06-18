@@ -10,6 +10,7 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="/css/main.css" type="text/css" />
+		<link rel="stylesheet" href="/css/bootstrap.min.css">
 	</head>
 	<body class="homepage is-preload">
 		<div id="page-wrapper">
@@ -18,8 +19,7 @@
 				<header id="header">
 					<div class="logo container">
 						<div>
-							<h1><a href="/" id="logo">웹개발실무 프로젝트</a></h1><br>
-							<p>A responsive site template by HTML5 UP</p>
+							<h1><a href="/" id="logo">지평집 펜션 </a></h1><br>
 						</div>
 						<br>
 						<div id="header_img_div" style="display:none">
@@ -37,8 +37,15 @@
 						<li><a href="left-sidebar.html">예약조회/취소</a></li>
 						<li><a href="#"></a></li>
 						
+						
+						<% if(!loggedIn) { %>
 						<li><a href="/login">로그인</a></li>
-						<li><a href="/login/join">회원가입</a></li>
+						<li><a href="/login/join">회원가입</a></li>	
+						<% } else {%>
+						<li><a href="/login/myinfo">내정보</a></li>
+						<li><a href="/login/logout">로그아웃</a></li>
+						<%}%>
+						
 						<!--
 						<li>
 							<a href="#">Dropdown</a>
