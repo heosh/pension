@@ -64,3 +64,6 @@ CREATE TABLE `reservation` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
 
+/* 
+INSERT INTO user(id,password,NAME,phone,email) VALUES('amdin',1234,'조희건',01020219784,'admin@gmail.com');
+
