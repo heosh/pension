@@ -13,8 +13,8 @@ CREATE TABLE `rooms` (
   `main_img` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
-INSERT INTO pension.rooms (name,maxpeople,price,service,description,check_in,check_out,main_img) VALUES
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+INSERT INTO rooms (name,maxpeople,price,service,description,check_in,check_out,main_img) VALUES
 	 ('아담',2,200000,'웰컴티,조식서비스,유무선인터넷','23평, 퀸사이즈 침대 
 정원 전망
 대형 스파욕조, 욕실용품, 드라이기','15:00','11:00','images/room/아담_0.jpg'),
