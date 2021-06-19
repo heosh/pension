@@ -6,7 +6,7 @@
                     <% if(userId == 'admin') { %>
                         <a class='button' style="font-size:1em" href="<%= `/room/${roomList[0].id}/edit` %>">수정</a>
                         <!--기본 항목은 삭제 불가는하도록 함-->
-                        <% if(roomList[0].id != 1 && roomList[0].id != 2 && roomList[0].id != 12 && roomList[0].id != 13) { %>
+                        <% if(roomList[0].id != 1 && roomList[0].id != 2 && roomList[0].id != 3 && roomList[0].id != 4) { %>
                             <a class='button' href="<%= `/room/${roomList[0].id}/delete?_method=DELETE` %>" onclick="return confirm('삭제하시겠습니까?')">삭제</a>
                         <% } %>
                         <a class='button' style="font-size:1em" href="<%= `/room` %>">목록</a>
