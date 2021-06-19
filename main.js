@@ -8,14 +8,20 @@ const express = require("express"),
   router = require('./routes/index'),
   mysql = require("mysql"),
   session = require("express-session"),
-  MySQLStore = require("express-mysql-session")(session);
+  MySQLStore = require("express-mysql-session")(session),
+  methodOverride = require("method-override");
 
-app.set("port", process.env.PORT || 3003);
+app.set("port", process.env.PORT || 3000);
 
 app.set("view engine", "ejs");
 app.use(express.static( __dirname+'/public'));
 
 //app.set("views", __dirname + '/views');
+app.use(
+  methodOverride("_method", {
+    methods: ["POST", "GET"]
+  })
+);
 
 app.use('/', express.static(__dirname + '/www')); // redirect root 
 app.use('/js', express.static(__dirname + '/node_modules/bootstrap/dist/js')); // redirect bootstrap JS 

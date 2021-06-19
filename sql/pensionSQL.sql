@@ -1,24 +1,28 @@
 CREATE DATABASE `pension`; /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
+-- pension.rooms definition
+
 CREATE TABLE `rooms` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(40) DEFAULT NULL,
   `maxpeople` int(11) DEFAULT NULL,
-  `amenity` varchar(200) DEFAULT NULL,
-  `service` varchar(200) DEFAULT "",
-  `description` varchar(200) DEFAULT "",
+  `price` int(11) DEFAULT NULL,
+  `service` varchar(200) DEFAULT NULL,
+  `description` varchar(200) DEFAULT NULL,
   `check_in` varchar(45) DEFAULT NULL,
   `check_out` varchar(45) DEFAULT NULL,
   `main_img` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
-INSERT INTO rooms (name,maxpeople,amenity,service,description,check_in,check_out,main_img) VALUES
-	 ('아담',3,NULL,'무료 생수,  프리미엄 TV 채널, 무료 Wifi','23평, 퀸사이즈 침대 
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+INSERT INTO pension.rooms (name,maxpeople,price,service,description,check_in,check_out,main_img) VALUES
+	 ('아담',2,200000,'웰컴티,조식서비스,유무선인터넷','23평, 퀸사이즈 침대 
 정원 전망
-대형 스파욕조, 욕실용품, 드라이기','15:00','11:00','images/room/adam01.jpg'),
-	 ('소담',2,NULL,'','','15:00','11:00','images/room/sodam01.jpg'),
-	 ('오비양',2,NULL,'','','15:00','11:00','images/room/obiyang01.jpg'),
-	 ('담빌라',2,NULL,'','','15:00','11:00','images/room/damvilla01.jpg');
+대형 스파욕조, 욕실용품, 드라이기','15:00','11:00','images/room/아담_0.jpg'),
+	 ('소담',6,220000,'웰컴티,조식서비스,유무선인터넷','','15:00','11:00','images/room/소담_0.jpg'),
+	 ('오비양',10,260000,'웰컴티,조식서비스,유무선인터넷','','15:00','11:00','images/room/오비양_0.jpg'),
+	 ('담빌라',10,300000,'웰컴티,조식서비스,유무선인터넷','23평, 퀸사이즈 침대
+정원 전망
+대형 스파욕조, 욕실용품, 드라이기','15:00','11:00','images/room/damvilla01.jpg');
 	 
 
 /* user table */
@@ -45,16 +49,18 @@ CREATE TABLE board (
 );
 
 
+-- pension.reservation definition
+
 CREATE TABLE `reservation` (
-  `id` int(11) NOT NULL,
-  `userId` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `userId` varchar(30) NOT NULL,
   `roomId` int(11) NOT NULL,
   `in_date` varchar(45) NOT NULL,
   `out_date` varchar(45) NOT NULL,
   `inwon` int(11) NOT NULL,
   `barbecue` varchar(45) NOT NULL,
-  `price` int(45) NOT NULL,
-  `request` varchar(45) NULL,
+  `price` int(45) DEFAULT NULL,
+  `request` varchar(100) DEFAULT '',
   PRIMARY KEY (`id`)
-  )
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
 

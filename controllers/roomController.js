@@ -6,7 +6,6 @@ const getRoomParams = body => {
         return {
             name: body.name,
             maxpeople: body.maxpeople,
-            amenity: body.amenity,
             service: body.service,
             description: body.description,
             check_in: body.check_in,

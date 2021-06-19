@@ -1,0 +1,29 @@
+<style> .col-sm-6 { display: table; margin-left: auto; margin-right: auto; } </style>
+<div class="col-sm-6">
+  <img src="/images/booking/pension1.PNG" alt="">
+</div>
+<div class="col-sm-6">
+  <h3>예약</h3>
+  <form name="booking-form" action="/booking/create?_method=PUT" method="post">
+    <label>날짜: <input type="date" name='in_date' value='<%= `${in_date}` %>' readonly> ~ <input type="date" name='out_date' value='<%= `${out_date}` %>' readonly></label>
+    <label>방:</label>
+    <% roomBookingInfo.forEach( (room, index) => { %>
+      <% if(room.booked == 1) { %>
+        <input type="radio" id="<%= `${room.id}` %>" name="roomId" disabled/>
+      <% } else { %>
+        <input type="radio" id="<%= `${room.id}` %>" name="roomId" value="<%= `${room.id}` %>"/>
+      <% } %>
+      <label for="<%= `${room.id}` %>"><span></span><%= `${room.name}` %>
+        <ul style="color:gray">(최대 <%= `${room.maxpeople}` %>인)  ￦ <%= `${room.price}` %></ul>
+      </label>
+
+    <% }); %>
+  
+    <label>인원:</label><input type="number" style="width:300px" name="inwon" min="1" max="12" value="1">
+    <label>바베큐 사용 여부 (O/X):<ul style="color:gray">(바베큐 금액은 후불입니다.)</ul></label>
+    <input type="text" style="width:300px" name="barbecue" placeholder="(O/X)" required>
+    <label>요청사항</label><input type="text" name="request">
+    <input type="hidden" name="userId" value="<%= `${userId}` %>">
+    <button onclick="javascript:window.confirm('예약하시겠습니까?')" style="margin-top: 1em;">예약하기</button>    
+  </form>
+</div>

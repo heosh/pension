@@ -36,8 +36,8 @@ const upload = multer({storage: storage})
 
 router.get("/", roomController.index);
 router.get("/new", roomController.new);
-router.post("/create", upload.fields([{ name:'0'}, { name:'1'}, {name:'2'}, {name:'3'}, {name:'4'}]), roomController.create, roomController.redirectView);
-router.post("/update", upload.fields([{ name:'0'}, { name:'1'}, {name:'2'}, {name:'3'}, {name:'4'}]), roomController.update, roomController.redirectView);
+router.put("/create", upload.fields([{ name:'0'}, { name:'1'}, {name:'2'}, {name:'3'}, {name:'4'}]), roomController.create, roomController.redirectView);
+router.put("/update", upload.fields([{ name:'0'}, { name:'1'}, {name:'2'}, {name:'3'}, {name:'4'}]), roomController.update, roomController.redirectView);
 router.get("/:id/edit", roomController.edit);
 router.delete("/:id/delete", roomController.delete, roomController.redirectView);
 

@@ -1,0 +1,56 @@
+<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">-->
+<!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>-->
+<div class="col-sm-12">
+    <h3>예약조회</h3>
+    <table width=100% class='default' style="text-align-last:center">
+        <tr>
+            <th>no</th>
+            <th>사용자ID</th>
+            <th>방이름</th>
+            <th>체크인</th>
+            <th>체크아웃</th>
+            <th>인원</th>
+            <th>바베큐 사용 여부</th>
+            <th>요청사항</th>
+            <th>가격</th>
+            <th>예약취소</th>
+        <tr>
+
+        <% bookingList.forEach( (data, index) => { %>
+            </tr>
+                <td>
+                    <%= `${index + 1}` %>
+                </td>
+                <td>
+                    <%= `${data.id}` %>
+                </td>
+                <td>
+                    <%= `${data.roomName}` %>
+                </td>
+                <td>
+                    <%= `${data.in_date}` %>
+                </td>
+                <td>
+                    <%= `${data.out_date}` %>
+                </td>
+                <td>
+                    <%= `${data.inwon}` %>
+                </td>
+                <td>
+                    <%= `${data.barbecue}` %>
+                </td>
+                <td>
+                    <%= `${data.request}` %>
+                </td>
+                <td>
+                    <%= `${data.price}` %>
+                </td>
+                <td>
+                    <a class='button small' href="<%= `/booking/${data.reservId}/delete?_method=DELETE` %>" onclick="return confirm('예약을 취소하시겠습니까?')">
+                        예약취소
+                    </a>
+                </td>
+            </tr>
+        <%})%>
+    </table>
+</div>

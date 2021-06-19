@@ -3,19 +3,25 @@
 <div class="col-sm-6">
   <img src="images/booking/pension1.PNG" alt="">
 </div>
-<div class="col-sm-6z">
+<div class="col-sm-6">
   <h3>예약</h3>
   <p>날짜를 선택해주세요!</p>
-  <form class="booking-form" action="/index" method="post">
+  <%
+    var date = new Date();
+    var year = date.getFullYear().toString();
+    var month = date.getMonth() + 1;
+    month = month < 10 ? '0' + month.toString() : month.toString();
+    var day = date.getDate();
+    day = day < 10 ? '0' + day.toString() : day.toString();
+    
+    date = year + '-'+ month + '-'+ day;
+  %>
+  <form class="booking-form" action="/booking/date" method="post" style="text-align: center">
+    <label>날짜: <input type="date" name='in_date' min="<%= `${date}` %>" required> ~ <input type="date" name='out_date' min="<%= `${date}` %>" required></label>
+    <!--
     <input type="text" style="width:300px" name="inwon" placeholder="인원">
     <input type="text" style="width:300px" name="barbecue" placeholder="바베큐 사용여부 o/x">
-    <!-- <label><input type="radio" id="barbecue" value="use">사용</label>
-    <label><input type="radio" name="barbecue2" value="unuse">미사용</label> -->
-    <!-- <a href="/booking/h.html"><button>예약하기</button></a> -->
-    <button type="button" class="btn btn-primary active" id="btn" 
-	onclick="document.location.href='h.html'">예약하기</button>
-    
-
-    
+    -->
+    <button style="font-size:1em">확인</button>    
   </form>
 </div>
