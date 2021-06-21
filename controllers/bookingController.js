@@ -41,7 +41,15 @@ const bookingController = {
         console.log("booking in");
         res.locals.menu = "booking";
         req.session.menu = "booking";
-        res.render('booking/main');
+        if(req.session.userId == undefined)
+        {
+            //로그인 화면으로
+            res.send('<script type="text/javascript">alert("먼저 로그인해주시기 바랍니다."); document.location.href="/login";</script>'); 
+        }
+        else
+        {
+            res.render('booking/main');
+        }
     },
 
     seldate: (req, res, next) => {
