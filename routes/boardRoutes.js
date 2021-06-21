@@ -8,6 +8,8 @@ var conn = mysql_odbc.connection();
 /* page처리한뒤 리스트로 뿌림 */
 router.get('/page/:page',function(req,res,next)
 {
+    res.locals.menu = "board";
+    req.session.menu = "board";
     var page = req.params.page;
 
     var sql = "select idx, name, title, date_format(modidate,'%Y-%m-%d %H:%i:%s') modidate, " +

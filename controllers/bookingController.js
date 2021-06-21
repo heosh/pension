@@ -37,6 +37,13 @@ const bookingController = {
         else next();
       },
 
+    main: (req, res) => {
+        console.log("booking in");
+        res.locals.menu = "booking";
+        req.session.menu = "booking";
+        res.render('booking/main');
+    },
+
     seldate: (req, res, next) => {
         console.log(req.body)
         var in_date = req.body.in_date;
@@ -46,26 +53,29 @@ const bookingController = {
         {
             res.send('<script type="text/javascript">alert("체크아웃 날짜는 체크인 날짜 이후여야 합니다. 다시 선택해주세요."); document.location.href="javascript:history.back()";</script>'); 
         }
-        if(in_date != undefined && out_date != undefined)
-        {
-            // 선택한 날짜에 예약 가능한 방 확인. booked가 1이면 이미 예약된 방, 0이면 예약 가능
-            var sql = "select r.id, r.name, r.maxpeople, r.price, case when id in(select roomId from reservation where out_date < ? and in_date >= ?) then '1' else '0' end booked from rooms r order by id";
-            conn.query(sql, [in_date, out_date], (err, rows, fields) => {
-                console.log(sql)
-                if (err){
-                    console.log('err : ' + err);
-                    res.send();
-                }
-                if(rows.length > 0)
-                {
-                    res.body = req.body;
-                    res.render("booking/detail", {in_date: in_date, out_date: out_date, roomBookingInfo: rows, userId: req.session.userId});   
-                }
-            });
-        }
         else
         {
-            res.send('<script type="text/javascript">alert("날짜를 다시 선택해주세요."); document.location.href="javascript:history.back()";</script>');
+            if(in_date != undefined && out_date != undefined)
+            {
+                // 선택한 날짜에 예약 가능한 방 확인. booked가 1이면 이미 예약된 방, 0이면 예약 가능
+                var sql = "select r.id, r.name, r.maxpeople, r.price, case when id in(select roomId from reservation where out_date < ? and in_date >= ?) then '1' else '0' end booked from rooms r order by id";
+                conn.query(sql, [in_date, out_date], (err, rows, fields) => {
+                    console.log(sql)
+                    if (err){
+                        console.log('err : ' + err);
+                        res.send();
+                    }
+                    if(rows.length > 0)
+                    {
+                        res.body = req.body;
+                        res.render("booking/detail", {in_date: in_date, out_date: out_date, roomBookingInfo: rows, userId: req.session.userId});   
+                    }
+                });
+            }
+            else
+            {
+                res.send('<script type="text/javascript">alert("날짜를 다시 선택해주세요."); document.location.href="javascript:history.back()";</script>');
+            }
         }
     },
 
@@ -100,6 +110,7 @@ const bookingController = {
 
     check: (req, res, next) => {
         console.log("booking check in");
+        res.locals.menu = "booking2";
         console.log("userId: " + req.session.userId);
         var userId = req.session.userId;
         var sql = "select re.id reservId, u.id, re.roomId, r.name roomName, re.in_date, re.out_date, re.inwon, re.barbecue, re.request, r.price ";

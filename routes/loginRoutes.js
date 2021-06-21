@@ -5,8 +5,9 @@ var conn = mysql_odbc.connection();
 
 /* GET login page. */
 router.get('/', function(req, res, next) {
+    res.locals.menu = "login";
  
-  res.render('user/login');
+    res.render('user/login');
 });
 
 /* POST login page. */
@@ -42,6 +43,8 @@ router.get('/logout', function (req, res, next) {
 
  /* GET passwordchange page. */
 router.get('/passwordchange', function (req, res, next) {
+  res.locals.menu = "myinfo";
+  req.session.menu = "myinfo";
   res.render('user/passwordchange');
 });
 
@@ -107,6 +110,8 @@ router.post('/userdelete', function (req, res, next) {
 
 /* GET join page. */
 router.get('/join',function(req,res,next ){
+  res.locals.menu = "join";
+  req.session.menu = "join";
   res.render('user/join');
 
 });
@@ -220,7 +225,7 @@ router.post('/updatepassword',function(req,res,next){
 
 /* GET myinfo page. */
 router.get('/myinfo',function(req,res,next){
-
+    res.locals.menu = "myinfo";
     var userId = req.session.userId;
         
     var sql = "select id,password,name,phone,email from user  where id = " + "'"+ req.session.userId +"'";

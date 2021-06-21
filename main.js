@@ -58,6 +58,8 @@ app.use(express.json());
 app.use((req, res, next) => {
   console.log(`request made to: ${req.url}`);
   res.locals.loggedIn = req.session.userId;
+  res.locals.menu = req.session.menu;
+  if(res.locals.menu == undefined) res.locals.menu = "room";
   next();
 });
 

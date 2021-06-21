@@ -57,8 +57,10 @@ const roomController = {
         else next();
       },
 
-    index: async (req, res, next) => {
+    index: (req, res, next) => {
         console.log("room index in");
+        res.locals.menu = "room";
+        req.session.menu = "room";
         console.log(req.session.userId);
         var sql = "select * from rooms order by id";
         conn.query(sql, (err, rows, fields) => {
@@ -73,7 +75,7 @@ const roomController = {
         });
     },
 
-    show: async (req, res, next) => {
+    show: (req, res, next) => {
         console.log("room show in id: " + req.params.id);
         var sql = "select * from rooms where id = ?";
         conn.query(sql, req.params.id, (err, rows, fields) => {
@@ -88,7 +90,7 @@ const roomController = {
         });
     },
 
-    edit: async (req, res, next) => {
+    edit: (req, res, next) => {
         console.log("room edit in id: " + req.params.id);
         var id = req.params.id;
         var sql = "select * from rooms where id = ?";

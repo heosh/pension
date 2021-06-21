@@ -5,6 +5,14 @@
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 -->
 <html>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script>
+		$( document ).ready(function() {
+			console.log("<%=menu%>");
+			$('li').remove("current");
+			$("#"+"<%=menu%>").addClass("current");
+		});
+	</script>
 	<head>
 		<title>한림 담스파빌</title>
 		<meta charset="utf-8" />
@@ -31,19 +39,19 @@
 			<!-- Nav -->
 				<nav id="nav">
 					<ul>
-						<li class="current"><a href="/room">공간소개</a></li>
-						<li><a href="/booking">예약</a></li>
-						<li><a href="/board/page">공지사항</a></li>
-						<li><a href="/booking/check">예약조회/취소</a></li>
-						<li><a href="#"></a></li>
+						<li id="room" ><a href="/room">공간소개</a></li>
+						<li id="booking"><a href="/booking">예약</a></li>
+						<li id="board"><a href="/board/page">공지사항</a></li>
+						<li id="booking2"><a href="/booking/check">예약조회/취소</a></li>
+						<li></li>
 						
 						
-						<% if(!loggedIn) { %>
-						<li><a href="/login">로그인</a></li>
-						<li><a href="/login/join">회원가입</a></li>	
-						<% } else {%>
-						<li><a href="/login/myinfo">내정보</a></li>
-						<li><a href="/login/logout">로그아웃</a></li>
+						<%if(!loggedIn){%>
+						<li <% if(menu == 'login'){ %> class='current' <% } %> ><a href="/login">로그인</a></li>
+						<li <% if(menu == 'join'){ %> class='current' <% } %> ><a href="/login/join">회원가입</a></li>	
+						<%}else {%>
+						<li <% if(menu == 'myinfo'){ %> class='current' <% } %> ><a href="/login/myinfo">내정보</a></li>
+						<li  <% if(menu == 'logout'){ %> class='current' <% } %> ><a href="/login/logout">로그아웃</a></li>
 						<%}%>
 						
 						<!--

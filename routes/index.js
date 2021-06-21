@@ -11,6 +11,7 @@ const router = require("express").Router(),
 router.get("/", (req, res) => {
   console.log("get in");
   console.log("현재 userId:",req.session.userId);
+  res.locals.menu = "room";
   res.render('index',{userId : req.session.userId});
 });
 
