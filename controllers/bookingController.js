@@ -57,6 +57,7 @@ const bookingController = {
         var in_date = req.body.in_date;
         var out_date = req.body.out_date;
         console.log("room seldate in! date: " + in_date + "~" + out_date);
+        //체크인 날짜가 체크아웃 날짜보다 이후일 때
         if(in_date >= out_date)
         {
             res.send('<script type="text/javascript">alert("체크아웃 날짜는 체크인 날짜 이후여야 합니다. 다시 선택해주세요."); document.location.href="javascript:history.back()";</script>'); 
@@ -100,7 +101,7 @@ const bookingController = {
         }
         else
         {
-            // rooms data insert
+            // reservation data insert
             var sql = 'insert into reservation set ?'
             conn.query(sql, bookingParams, (err, rows, fields) => {
                 if (!err) {
@@ -124,15 +125,10 @@ const bookingController = {
         var sql = "select re.id reservId, u.id, re.roomId, r.name roomName, re.in_date, re.out_date, re.inwon, re.barbecue, re.request, r.price ";
             sql += "from reservation re join rooms r on r.id = re.roomId ";
             sql += "join user u on re.userId = u.id ";
-        if(userId == 'admin')
+        if(userId != 'admin')
         {
-
-        }
-        else 
-        {
+            // 사용자인 경우 필터값 추가. 사용자는 현재 날짜 이후의 예약 내역만 조회 가능하다.
             sql += "where u.id = '" + userId + "' ";
-    
-
             sql += "and in_date >= '" + todate() + "' ";
         }
         console.log(sql);
@@ -151,8 +147,8 @@ const bookingController = {
     delete: (req, res, next) => {
         console.log('booking delete in')
         console.log(req.params)
-        var roomId = req.params.id
-        if(roomId == null)
+        var bookedId = req.params.id
+        if(bookedId == null)
         {
             console.log('[booking delete] bookedId is null!')
             res.send()
@@ -160,7 +156,7 @@ const bookingController = {
         else
         {
             var sql = 'delete from reservation where id=?'
-            conn.query(sql, roomId, (err, rows, fields) => {
+            conn.query(sql, bookedId, (err, rows, fields) => {
                 if(!err) {
                     console.log('delete success');
                     res.locals.redirect = "/booking/check";
