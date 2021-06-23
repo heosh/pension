@@ -42,8 +42,6 @@ router.get("/:id/edit", roomController.edit);
 router.delete("/:id/delete", roomController.delete, roomController.redirectView);
 
 router.get("/:id", roomController.show);
-
-
 router.post("/upload", upload.array('img'), roomController.upload);
 
 

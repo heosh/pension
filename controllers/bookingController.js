@@ -67,8 +67,11 @@ const bookingController = {
             if(in_date != undefined && out_date != undefined)
             {
                 // 선택한 날짜에 예약 가능한 방 확인. booked가 1이면 이미 예약된 방, 0이면 예약 가능
-                var sql = "select r.id, r.name, r.maxpeople, r.price, case when id in(select roomId from reservation where out_date < ? and in_date >= ?) then '1' else '0' end booked from rooms r order by id";
-                conn.query(sql, [in_date, out_date], (err, rows, fields) => {
+                var sql = "select r.id, r.name, r.maxpeople, r.price, ";
+                sql += "case when id in(select roomId from reservation ";
+                sql += "where (in_date <= ? and ? < out_date) or (in_date < ? and ? <= out_date) ) then '1' else '0' end booked ";
+                sql += "from rooms r order by id";
+                conn.query(sql, [in_date, in_date, out_date, out_date], (err, rows, fields) => {
                     console.log(sql)
                     if (err){
                         console.log('err : ' + err);
@@ -101,16 +104,31 @@ const bookingController = {
         }
         else
         {
-            // reservation data insert
-            var sql = 'insert into reservation set ?'
-            conn.query(sql, bookingParams, (err, rows, fields) => {
+            var sql = "select maxpeople from rooms where id=?";
+            conn.query(sql, bookingParams.roomId, (err, rows, fields) => {
                 if (!err) {
-                    console.log('insert success');
-                    console.log('insert id- '+ rows.insertId)
-                    res.locals.redirect = `/booking/check`;
-                    next();
+                    // 최대 인원수 검사
+                    if(rows[0].maxpeople < bookingParams.inwon)
+                    {
+                        res.send('<script type="text/javascript">alert("숙박 인원이 수용 가능한 인원 수 보다 많습니다."); document.location.href="javascript:history.back()";</script>');
+                    }
+                    else{
+                        // reservation data insert
+                        sql = "insert into reservation set ?";
+                        conn.query(sql, bookingParams, (err, rows, fields) => {
+                            if (!err) {
+                                console.log("insert success");
+                                console.log("insert id- "+ rows.insertId)
+                                res.locals.redirect = `/booking/check`;
+                                next();
+                            } else {
+                                console.log("err : " + err);
+                                res.send();
+                            }
+                        });
+                    }
                 } else {
-                    console.log('err : ' + err);
+                    console.log("err : " + err);
                     res.send();
                 }
             });
