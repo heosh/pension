@@ -14,15 +14,16 @@ const getRoomParams = body => {
         }
     };
 
-const fileRename = (roomId, roomName) => {
+const fileRename = (roomId, roomName, ex_roomName) => {
     // 새로 생성된 room의 경우 이미지 이름이 undefined 되어 있어 rename해줌
     var path = './public/images/room';
     fs.readdir(path, (err, files) => {
         files.forEach(file => {
             //console.log(file)
+            var nowName = '';
+            var newName = '';
             if(file.startsWith('undefined')){
-                var nowName = path + "/" + file;
-                var newName;
+                nowName = path + "/" + file;
                 if(file.endsWith('_0.jpg'))
                 {
                     newName = path + "/" + file.replace("undefined", roomName);
@@ -30,7 +31,14 @@ const fileRename = (roomId, roomName) => {
                 }else{
                     newName = path + "/" + file.replace("undefined", roomId);
                 }
-                
+            }
+            if(file.startsWith(ex_roomName + '_0.jpg')){
+                //console.log(file);
+                nowName = path + "/" + file;
+                newName = path + "/" + file.replace(ex_roomName, roomName);
+            }
+            //파일을 찾아 변경할 newName이 정해진 경우 rename 실행
+            if(newName != ''){
                 fs.renameSync(nowName, newName, (err) => {
                     if(err) {
                         console.log("fileRename Err!! " + err)
@@ -142,6 +150,7 @@ const roomController = {
                 if (!err) {
                     console.log('insert success');
                     console.log('insert id- '+ rows.insertId)
+                    // 이미지 파일 리네임 작업
                     fileRename(rows.insertId, roomParams.name)
                     res.locals.redirect = `/room/${rows.insertId}`;
                     next();
@@ -178,13 +187,6 @@ const roomController = {
         }
     },
 
-    upload: (req, res, next) => {
-        res.json(req.files);
-        console.log("----");
-        console.log(req.files);
-        console.log("----");
-    },
-
     update: (req, res, next) => {
         console.log("----");
         console.log(req.files);
@@ -202,11 +204,16 @@ const roomController = {
             conn.query('select * from rooms where id= ?', roomId, (err, rows, fields) => {
                 if(rows.length > 0) //업데이트할 room data가 있는지 확인
                 {
+                    var ex_roomName = rows[0].name;
+                    roomParams.main_img = 'images/room/' + roomParams.name + '_0.jpg';
+                    //업데이트 실행
                     var sql = 'update rooms set ? where id= ?';
                     conn.query(sql, [roomParams, roomId], (err, rows, fields) => {
                         if (!err) {
                             console.log('update success');
-                            console.log(`/room/${roomId}`);                            
+                            console.log(`/room/${roomId}`);
+                            //이미지 파일 리네임 작업
+                            fileRename(roomId, roomParams.name, ex_roomName);
                             res.locals.redirect = `/room/${roomId}`;
                             next();
                         } else {

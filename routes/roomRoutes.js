@@ -23,7 +23,7 @@ var storage = multer.diskStorage({
         }
         var roomName = req.body.name;
         var roomId = req.body.id;
-        if(keyName = 0) roomId = roomName;
+        if(keyName == 0) roomId = roomName;
         //filename 형식을 roomname_num 형태로 변경
         var filename = roomId + "_" + imgNum + ".jpg";
         //console.log("**filename: "+filename)
@@ -40,9 +40,7 @@ router.put("/create", upload.fields([{ name:'0'}, { name:'1'}, {name:'2'}, {name
 router.put("/update", upload.fields([{ name:'0'}, { name:'1'}, {name:'2'}, {name:'3'}, {name:'4'}]), roomController.update, roomController.redirectView);
 router.get("/:id/edit", roomController.edit);
 router.delete("/:id/delete", roomController.delete, roomController.redirectView);
-
 router.get("/:id", roomController.show);
-router.post("/upload", upload.array('img'), roomController.upload);
 
 
 module.exports = router;
